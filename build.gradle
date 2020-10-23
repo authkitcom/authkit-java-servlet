@@ -1,0 +1,44 @@
+plugins {
+  id 'java-library'
+  id 'idea'
+  id 'com.diffplug.gradle.spotless' version '3.28.0'
+}
+
+sourceCompatibility = 8
+targetCompatibility = 8
+group = 'com.authkit'
+version = version
+
+spotless {
+ java {
+    googleJavaFormat()
+  }
+}
+
+test {
+  useJUnitPlatform()
+}
+
+ext {
+
+  servletVersion = '2.3.4.RELEASE'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+  implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+
+  testCompile group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
+  testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.2.4'
+  testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.0'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+  testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
+  testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+}
+
+
