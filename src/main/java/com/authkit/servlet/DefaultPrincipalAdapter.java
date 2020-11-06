@@ -4,7 +4,7 @@ import com.authkit.AuthKitPrincipal;
 
 import java.security.Principal;
 
-public class DefaultPrinciplaAdapter implements PrincipalAdapter {
+public class DefaultPrincipalAdapter implements PrincipalAdapter {
 
     @Override
     public void init(Config config) {

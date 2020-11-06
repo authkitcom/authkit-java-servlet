@@ -7,6 +7,7 @@ import java.util.Set;
 public class AuthKitPrincipal implements Principal {
 
     private String issuer;
+    private String subject;
     private String audience;
     private String givenName;
     private String familyName;
@@ -21,6 +22,14 @@ public class AuthKitPrincipal implements Principal {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getAudience() {
@@ -90,6 +99,7 @@ public class AuthKitPrincipal implements Principal {
         if (o == null || getClass() != o.getClass()) return false;
         AuthKitPrincipal that = (AuthKitPrincipal) o;
         return Objects.equals(issuer, that.issuer) &&
+                Objects.equals(subject, that.subject) &&
                 Objects.equals(audience, that.audience) &&
                 Objects.equals(givenName, that.givenName) &&
                 Objects.equals(familyName, that.familyName) &&
@@ -101,6 +111,6 @@ public class AuthKitPrincipal implements Principal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(issuer, audience, givenName, familyName, email, preferredUsername, roles, permissions);
+        return Objects.hash(issuer, subject, audience, givenName, familyName, email, preferredUsername, roles, permissions);
     }
 }

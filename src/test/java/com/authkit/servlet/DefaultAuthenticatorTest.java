@@ -1,6 +1,7 @@
 package com.authkit.servlet;
 
 
+import com.authkit.AuthKitPrincipal;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -65,7 +66,17 @@ public class DefaultAuthenticatorTest {
 
         unit.init(config);
 
-        unit.authenticate(accessToken);
+        AuthKitPrincipal got = unit.authenticate(accessToken);
+
+        assertThat(got).isNotNull();
+        assertThat(got.getSubject()).isEqualTo("a");
+        assertThat(got.getAudience()).isEqualTo(audience);
+        assertThat(got.getEmail()).isNotEmpty();
+        assertThat(got.getFamilyName()).isNotEmpty();
+        assertThat(got.getGivenName()).isNotEmpty();
+        assertThat(got.getIssuer()).isEqualTo("http://localhost:9999");
+        assertThat(got.getPermissions()).hasSize(2);
+        assertThat(got.getRoles()).hasSize(2);
 
     }
 }

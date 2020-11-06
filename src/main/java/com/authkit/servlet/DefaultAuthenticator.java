@@ -113,17 +113,16 @@ public class DefaultAuthenticator implements Authenticator {
 
         AuthKitPrincipal p = new AuthKitPrincipal();
 
+        p.setSubject(claims.getSubject());
         p.setAudience(claims.getAudience());
 
+        // TODO - This is called way too many times
         Map<String, ?> userinfo = loadObjectFromUrl(openIdConfiguration.userinfoEndpoint, Map.class, token);
 
-        /*
-        p.setEmail();
-        p.setFamilyName();
-        p.setGivenName();
+        p.setEmail((String) userinfo.get("email"));
+        p.setFamilyName((String) userinfo.get("family_name"));
+        p.setGivenName((String) userinfo.get("given_name"));
         p.setIssuer(claims.getIssuer());
-        p.setPreferredUsername();
-         */
 
         p.setPermissions(stringArrayToStringSetClaim(claims, "permissions"));
         p.setRoles(stringArrayToStringSetClaim(claims, "roles"));

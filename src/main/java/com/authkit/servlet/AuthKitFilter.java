@@ -11,7 +11,7 @@ import java.util.function.Function;
 public class AuthKitFilter implements Filter {
 
     public static final TokenExtractor DEFAULT_EXTRACTOR = new DefaultTokenExtractor();
-    public static final PrincipalAdapter DEFAULT_PRINCIPAL_ADAPTER = new DefaultPrinciplaAdapter();
+    public static final PrincipalAdapter DEFAULT_PRINCIPAL_ADAPTER = new DefaultPrincipalAdapter();
     public static final Handler DEFAULT_HANDLER = new DefaultHandler();
 
     private final TokenExtractor extractor;
