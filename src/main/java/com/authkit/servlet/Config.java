@@ -12,6 +12,12 @@ public class Config {
     private final Map<String, String> initParameters;
     private final ServletContext servletContext;
 
+    // Visible for testing
+    Config()  {
+        this.initParameters = new HashMap<String, String>();
+        this.servletContext = null;
+    }
+
     public Config(FilterConfig filterConfig) {
 
         Map<String, String> params = new HashMap<String, String>();

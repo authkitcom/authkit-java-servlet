@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)

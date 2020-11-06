@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+
+  engine:
+    image: harbor.authkit.com/authkit/engine:develop
+    restart: always
+    environment:
+      HOST: 0.0.0.0
+      URL: http://localhost:9999
+      USERS: /etc/users.json
+    volumes:
+      - ./users.json:/etc/users.json
+    ports:
+      - 9999:8080

@@ -9,6 +9,7 @@ stdenv.mkDerivation {
     gitAndTools.gitflow
     jdk8
     gradle
+    docker-compose
   ];
 
   shellHook = ''

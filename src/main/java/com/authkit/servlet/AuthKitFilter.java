@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.function.Function;
 
 public class AuthKitFilter implements Filter {
 
@@ -18,28 +19,37 @@ public class AuthKitFilter implements Filter {
     private final Handler handler;
     private final Authenticator authenticator;
 
+    Function<FilterConfig, Config> configBuilder = new Function<FilterConfig, Config>() {
+        @Override
+        public Config apply(FilterConfig filterConfig) {
+            return new Config(filterConfig);
+        }
+    };
+
     public AuthKitFilter() {
-        this(DEFAULT_EXTRACTOR, DEFAULT_PRINCIPAL_ADAPTER, DEFAULT_HANDLER);
+        this(DEFAULT_EXTRACTOR, DEFAULT_PRINCIPAL_ADAPTER, DEFAULT_HANDLER,
+                new DefaultAuthenticator());
     }
 
     public AuthKitFilter(TokenExtractor extractor,
                          PrincipalAdapter adapter,
-                         Handler handler) {
+                         Handler handler,
+                         Authenticator authenticator) {
         this.extractor = extractor;
         this.adapter = adapter;
         this.handler = handler;
-        this.authenticator = new DefaultAuthenticator();
+        this.authenticator = authenticator;
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
-        Config config = new Config(filterConfig);
+        Config config = configBuilder.apply(filterConfig);
 
         this.extractor.init(config);
         this.adapter.init(config);
         this.handler.init(config);
-        this.adapter.init(config);
+        this.authenticator.init(config);
 
     }
 
