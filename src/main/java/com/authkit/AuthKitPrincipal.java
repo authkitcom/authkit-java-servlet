@@ -1,6 +1,7 @@
 package com.authkit;
 
 import java.security.Principal;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class AuthKitPrincipal implements Principal {
     private String preferredUsername;
     private Set<String> roles;
     private Set<String> permissions;
+    private Map<String, Object> metadata;
 
     public String getIssuer() {
         return issuer;
@@ -93,24 +95,33 @@ public class AuthKitPrincipal implements Principal {
         return preferredUsername;
     }
 
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AuthKitPrincipal that = (AuthKitPrincipal) o;
-        return Objects.equals(issuer, that.issuer) &&
-                Objects.equals(subject, that.subject) &&
-                Objects.equals(audience, that.audience) &&
-                Objects.equals(givenName, that.givenName) &&
-                Objects.equals(familyName, that.familyName) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(preferredUsername, that.preferredUsername) &&
-                Objects.equals(roles, that.roles) &&
-                Objects.equals(permissions, that.permissions);
+        AuthKitPrincipal principal = (AuthKitPrincipal) o;
+        return Objects.equals(issuer, principal.issuer) &&
+                Objects.equals(subject, principal.subject) &&
+                Objects.equals(audience, principal.audience) &&
+                Objects.equals(givenName, principal.givenName) &&
+                Objects.equals(familyName, principal.familyName) &&
+                Objects.equals(email, principal.email) &&
+                Objects.equals(preferredUsername, principal.preferredUsername) &&
+                Objects.equals(roles, principal.roles) &&
+                Objects.equals(permissions, principal.permissions) &&
+                Objects.equals(metadata, principal.metadata);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(issuer, subject, audience, givenName, familyName, email, preferredUsername, roles, permissions);
+        return Objects.hash(issuer, subject, audience, givenName, familyName, email, preferredUsername, roles, permissions, metadata);
     }
 }

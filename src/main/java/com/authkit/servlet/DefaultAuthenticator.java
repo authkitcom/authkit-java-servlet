@@ -24,6 +24,16 @@ public class DefaultAuthenticator implements Authenticator {
     private static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy
             .LOWER_CASE_WITH_UNDERSCORES).create();
 
+    private static final Set<String> RESERVED_CLAIMS = new HashSet<String>();
+
+    static {
+        RESERVED_CLAIMS.add("email");
+        RESERVED_CLAIMS.add("family_name");
+        RESERVED_CLAIMS.add("given_name");
+        RESERVED_CLAIMS.add("roles");
+        RESERVED_CLAIMS.add("permissions");
+    }
+
     public static class OpenIdConfiguration {
         private String authorizationEndpoint;
         private String[] grantTypesSupported;
@@ -123,9 +133,15 @@ public class DefaultAuthenticator implements Authenticator {
         p.setFamilyName((String) userinfo.get("family_name"));
         p.setGivenName((String) userinfo.get("given_name"));
         p.setIssuer(claims.getIssuer());
-
         p.setPermissions(stringArrayToStringSetClaim(claims, "permissions"));
         p.setRoles(stringArrayToStringSetClaim(claims, "roles"));
+        p.setMetadata(new HashMap<String, Object>());
+
+        for (Map.Entry<String, ?> e : userinfo.entrySet()) {
+            if (! RESERVED_CLAIMS.contains(e.getKey())) {
+                p.getMetadata().put(e.getKey(), e.getValue());
+            }
+        }
 
         return p;
     }
