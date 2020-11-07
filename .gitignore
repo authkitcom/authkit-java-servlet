@@ -4,3 +4,4 @@ authkit-servlet.ipr
 authkit-servlet.iws
 out
 .gradle
+build
