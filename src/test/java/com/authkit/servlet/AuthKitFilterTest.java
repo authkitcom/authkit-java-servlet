@@ -99,13 +99,13 @@ public class AuthKitFilterTest {
 
         when(teMock.apply(reqMock)).thenReturn(token);
         when(aMock.authenticate(token)).thenReturn(principal);
-        when(paMock.apply(principal)).thenReturn(null);
+        when(paMock.adapt(reqMock, principal)).thenReturn(null);
 
         unit.doFilter(reqMock, respMock, fchnMock);
 
         verify(teMock).apply(reqMock);
         verify(aMock).authenticate(token);
-        verify(paMock).apply(principal);
+        verify(paMock).adapt(reqMock, principal);
         verify(hMock).handleUnauthenticated(reqMock, respMock, fchnMock);
 
         verifyNoMoreInteractions();
@@ -116,13 +116,13 @@ public class AuthKitFilterTest {
 
         when(teMock.apply(reqMock)).thenReturn(token);
         when(aMock.authenticate(token)).thenReturn(principal);
-        when(paMock.apply(principal)).thenReturn(translatedPrincipal);
+        when(paMock.adapt(reqMock, principal)).thenReturn(translatedPrincipal);
 
         unit.doFilter(reqMock, respMock, fchnMock);
 
         verify(teMock).apply(reqMock);
         verify(aMock).authenticate(token);
-        verify(paMock).apply(principal);
+        verify(paMock).adapt(reqMock, principal);
         verify(hMock).handleAuthenticated(translatedPrincipal, reqMock, respMock, fchnMock);
 
         verifyNoMoreInteractions();

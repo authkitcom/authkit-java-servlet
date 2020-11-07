@@ -14,6 +14,6 @@ public class DefaultPrincipalAdapterTest {
 
         AuthKitPrincipal principal = new AuthKitPrincipal();
 
-        assertThat(unit.apply(principal)).isSameAs(principal);
+        assertThat(unit.adapt(null, principal)).isSameAs(principal);
     }
 }

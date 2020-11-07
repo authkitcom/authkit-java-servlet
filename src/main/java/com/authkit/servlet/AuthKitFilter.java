@@ -72,7 +72,7 @@ public class AuthKitFilter implements Filter {
             return;
         }
 
-        Principal translatedPrincipal = adapter.apply(principal);
+        Principal translatedPrincipal = adapter.adapt(req, principal);
 
         if (translatedPrincipal == null) {
             handler.handleUnauthenticated(request, response, chain);
